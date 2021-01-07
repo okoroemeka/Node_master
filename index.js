@@ -11,20 +11,12 @@ const requestHandler = function (req, res) {
 
 const httpServer = http.createServer(requestHandler);
 
-httpServer.listen(config.port, () =>
-  console.log(`the server is listening on port ${config.httpPort}`)
-);
-
 const serverOptions = {
   key: fs.readFileSync('./https/key.pem'),
   cert: fs.readFileSync('./https/cert.pem'),
 };
 
 const httpsServer = https.createServer(serverOptions, requestHandler);
-
-httpsServer.listen(config.port, () =>
-  console.log(`the server is listening on port ${config.httpsPort}`)
-);
 
 const unifiedServer = function (req, res) {
   const parsedUrl = url.parse(req.url, true);
@@ -70,14 +62,22 @@ const unifiedServer = function (req, res) {
 };
 const handler = {};
 
-handler.sample = function (data, callback) {
-  callback(406, data);
-};
-
 handler.notFound = function (data, callback) {
   callback(404);
 };
 
-const router = {
-  sample: handler.sample,
+handler.ping = function (data, callback) {
+  callback(200);
 };
+
+const router = {
+  ping: handler.ping,
+};
+
+httpServer.listen(config.port, () =>
+  console.log(`the server is listening on port ${config.httpPort}`)
+);
+
+httpsServer.listen(config.port, () =>
+  console.log(`the server is listening on port ${config.httpsPort}`)
+);
