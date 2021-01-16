@@ -6,6 +6,7 @@ const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
 
 const requestHandler = function (req, res) {
+  console.log('object :>> ', 'object');
   unifiedServer(req, res);
 };
 
@@ -74,10 +75,10 @@ const router = {
   ping: handler.ping,
 };
 
-httpServer.listen(config.port, () =>
+httpServer.listen(config.httpPort, () =>
   console.log(`the server is listening on port ${config.httpPort}`)
 );
 
-httpsServer.listen(config.port, () =>
+httpsServer.listen(config.httpsPort, () =>
   console.log(`the server is listening on port ${config.httpsPort}`)
 );

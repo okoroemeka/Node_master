@@ -1,8 +1,8 @@
 const environments = {};
 
 environments.staging = {
-  httpPort: 3000,
-  httpsPort: 3001,
+  httpPort: 9000,
+  httpsPort: 8000,
   envName: 'staging',
 };
 
